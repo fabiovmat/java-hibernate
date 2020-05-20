@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head></h:head>
+
+
+
+<h:body>
+
+
+	<h:form>
+		<h:panelGrid columns="2">
+			<h:outputLabel>Id</h:outputLabel>
+			<h:inputText readonly="true"
+				value="#{usuarioPessoaManagedBean.usuarioPessoa.id}" />
+
+			<h:outputLabel>Nome</h:outputLabel>
+			<h:inputText value="#{usuarioPessoaManagedBean.usuarioPessoa.nome}" />
+
+			<h:outputLabel>Sobrenome</h:outputLabel>
+			<h:inputText
+				value="#{usuarioPessoaManagedBean.usuarioPessoa.sobrenome}" />
+
+			<h:outputLabel>Email</h:outputLabel>
+			<h:inputText value="#{usuarioPessoaManagedBean.usuarioPessoa.email}" />
+
+			<h:outputLabel>Idade</h:outputLabel>
+			<h:inputText value="#{usuarioPessoaManagedBean.usuarioPessoa.idade}" />
+
+			<h:outputLabel>Login</h:outputLabel>
+			<h:inputText value="#{usuarioPessoaManagedBean.usuarioPessoa.login}" />
+
+			<h:outputLabel>Senha</h:outputLabel>
+			<h:inputSecret
+				value="#{usuarioPessoaManagedBean.usuarioPessoa.senha}" />
+
+
+
+		</h:panelGrid>
+		<h:commandButton value="Salvar"
+			action="#{usuarioPessoaManagedBean.salvar}"></h:commandButton>
+		<h:commandButton value="Novo"
+			action="#{usuarioPessoaManagedBean.novo}"></h:commandButton>
+
+		<h:dataTable value="#{usuarioPessoaManagedBean.list}" var="user">
+			<h:column>
+				<h:outputText value="#{user.id}"></h:outputText>
+
+			</h:column>
+
+			<h:column>
+				<h:outputText value="#{user.nome}"></h:outputText>
+
+			</h:column>
+
+			<h:column>
+				<h:outputText value="#{user.sobrenome}"></h:outputText>
+
+			</h:column>
+
+
+			<h:column>
+				<h:outputText value="#{user.email}"></h:outputText>
+
+			</h:column>
+
+			<h:column>
+				<h:outputText value="#{user.login}"></h:outputText>
+
+			</h:column>
+
+			<h:column>
+				<h:outputText value="#{user.idade}"></h:outputText>
+
+			</h:column>
+
+		</h:dataTable>
+
+
+	</h:form>
+
+
+
+
+
+</h:body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</html>
