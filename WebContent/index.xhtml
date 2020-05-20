@@ -39,14 +39,17 @@
 
 
 		</h:panelGrid>
-		<br/><br/>
+		<br />
+		<br />
 		<h:commandButton value="Salvar"
 			action="#{usuarioPessoaManagedBean.salvar}"></h:commandButton>
 		<h:commandButton value="Novo"
 			action="#{usuarioPessoaManagedBean.novo}"></h:commandButton>
 
-<br/><br/>
-		<h:dataTable value="#{usuarioPessoaManagedBean.list}" var="user" cellpadding="15" border="1">
+		<br />
+		<br />
+		<h:dataTable value="#{usuarioPessoaManagedBean.list}" var="user"
+			cellpadding="15" border="1">
 			<f:facet name="header">Lista de usuários</f:facet>
 			<h:column>
 				<f:facet name="header">Id</f:facet>
@@ -84,33 +87,30 @@
 				<h:outputText value="#{user.idade}"></h:outputText>
 
 			</h:column>
-			
-			
+
+
 			<h:column>
 				<f:facet name="header">Editar</f:facet>
 				<h:commandLink value="Editar">
-				<f:setPropertyActionListener value="#{user}" target="#{usuarioPessoaManagedBean.usuarioPessoa}"></f:setPropertyActionListener>
-				
-				
-				
-				
+					<f:setPropertyActionListener value="#{user}"
+						target="#{usuarioPessoaManagedBean.usuarioPessoa}"></f:setPropertyActionListener>
+
 				</h:commandLink>
 			</h:column>
-			
-			
+
+
 			<h:column>
 				<f:facet name="header">Excluir</f:facet>
-				<h:commandLink value="Excluir" action="#{usuarioPessoaManagedBean.remover}">
-				<f:setPropertyActionListener value="#{user}" target="#{usuarioPessoaManagedBean.usuarioPessoa}"></f:setPropertyActionListener>
-				
-				
-				
-				
+				<h:commandLink value="Excluir"
+					action="#{usuarioPessoaManagedBean.remover}">
+					<f:setPropertyActionListener value="#{user}"
+						target="#{usuarioPessoaManagedBean.usuarioPessoa}"></f:setPropertyActionListener>
+
 				</h:commandLink>
 			</h:column>
-			
-			
-			
+
+
+
 
 		</h:dataTable>
 
