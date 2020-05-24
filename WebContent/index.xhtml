@@ -1,40 +1,60 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core">
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
 
 <h:head></h:head>
 
 
 
 <h:body>
+ 
+ <h:form>
+ <p:breadCrumb>
+ 	<p:menuitem/>
+ 
+ 	<p:menuitem value="Pagina JSF" action="index.jsf"></p:menuitem>
+ 	
+ 	<p:menuitem value="Pagina PrimeFaces" action="primefaces.jsf"></p:menuitem>
+ 	
+ </p:breadCrumb>
+ </h:form>
 
 
-	<h:form>
+	<h:form id="formulario">
+	<h:messages showDetail="true" showSummary="false" id="msg"/>
 		<h:panelGrid columns="2">
 			<h:outputLabel>Id</h:outputLabel>
 			<h:inputText readonly="true"
 				value="#{usuarioPessoaManagedBean.usuarioPessoa.id}" />
 
 			<h:outputLabel>Nome</h:outputLabel>
-			<h:inputText value="#{usuarioPessoaManagedBean.usuarioPessoa.nome}" />
+			<h:inputText value="#{usuarioPessoaManagedBean.usuarioPessoa.nome}" required="true" requiredMessage="Informe o nome"/>
 
 			<h:outputLabel>Sobrenome</h:outputLabel>
 			<h:inputText
-				value="#{usuarioPessoaManagedBean.usuarioPessoa.sobrenome}" />
+				value="#{usuarioPessoaManagedBean.usuarioPessoa.sobrenome}" required="true" requiredMessage="Informe o sobrenome" />
 
 			<h:outputLabel>Email</h:outputLabel>
-			<h:inputText value="#{usuarioPessoaManagedBean.usuarioPessoa.email}" />
+			<h:inputText value="#{usuarioPessoaManagedBean.usuarioPessoa.email}" required="true" requiredMessage="Informe o e-mail" />
 
 			<h:outputLabel>Idade</h:outputLabel>
-			<h:inputText value="#{usuarioPessoaManagedBean.usuarioPessoa.idade}" />
+			<h:inputText value="#{usuarioPessoaManagedBean.usuarioPessoa.idade}" required="true" requiredMessage="Informe a Idade"/>
+
+			<h:outputLabel>Sexo </h:outputLabel>
+			<h:selectOneMenu value="#{usuarioPessoaManagedBean.usuarioPessoa.sexo}">
+			<f:selectItem itemValue="MASCULINO"/>
+			<f:selectItem itemValue="FEMININO"/>
+			</h:selectOneMenu>
+			
 
 			<h:outputLabel>Login</h:outputLabel>
-			<h:inputText value="#{usuarioPessoaManagedBean.usuarioPessoa.login}" />
+			<h:inputText value="#{usuarioPessoaManagedBean.usuarioPessoa.login}" required="true" requiredMessage="Informe o login"/>
 
 			<h:outputLabel>Senha</h:outputLabel>
 			<h:inputSecret
-				value="#{usuarioPessoaManagedBean.usuarioPessoa.senha}" />
+				value="#{usuarioPessoaManagedBean.usuarioPessoa.senha}" required="true" requiredMessage="Informe a senha"/>
 
 
 
@@ -48,6 +68,10 @@
 
 		<br />
 		<br />
+		
+		</h:form>
+		
+		<h:form id="formTable">
 		<h:dataTable value="#{usuarioPessoaManagedBean.list}" var="user"
 			cellpadding="15" border="1">
 			<f:facet name="header">Lista de usuários</f:facet>
@@ -87,13 +111,21 @@
 				<h:outputText value="#{user.idade}"></h:outputText>
 
 			</h:column>
+			
+			<h:column>
+				<f:facet name="header">Sexo</f:facet>
+				<h:outputText value="#{user.sexo}"></h:outputText>
+
+			</h:column>
+			
 
 
 			<h:column>
 				<f:facet name="header">Editar</f:facet>
-				<h:commandLink value="Editar">
+				<h:commandLink value="Editar" immediate="true" id="botaoeditar">
 					<f:setPropertyActionListener value="#{user}"
-						target="#{usuarioPessoaManagedBean.usuarioPessoa}"></f:setPropertyActionListener>
+						target="#{usuarioPessoaManagedBean.usuarioPessoa}"/>
+						<f:ajax execute="botaoeditar" render="@form"/>
 
 				</h:commandLink>
 			</h:column>
@@ -101,11 +133,11 @@
 
 			<h:column>
 				<f:facet name="header">Excluir</f:facet>
-				<h:commandLink value="Excluir"
+				<h:commandLink value="Excluir" immediate="true" id="botaoexcluir"
 					action="#{usuarioPessoaManagedBean.remover}">
 					<f:setPropertyActionListener value="#{user}"
-						target="#{usuarioPessoaManagedBean.usuarioPessoa}"></f:setPropertyActionListener>
-
+						target="#{usuarioPessoaManagedBean.usuarioPessoa}"/>
+					<f:ajax execute="botaoexcluir" render="@form formulario:msg"/>
 				</h:commandLink>
 			</h:column>
 
@@ -116,8 +148,6 @@
 
 
 	</h:form>
-
-
 
 
 
