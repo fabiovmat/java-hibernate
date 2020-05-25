@@ -122,9 +122,10 @@
 
 			<h:column>
 				<f:facet name="header">Editar</f:facet>
-				<h:commandLink value="Editar" immediate="true" id="botaoeditar">
+				<h:commandLink immediate="true" id="botaoeditar">
 					<f:setPropertyActionListener value="#{user}"
 						target="#{usuarioPessoaManagedBean.usuarioPessoa}"/>
+						<h:graphicImage url="resources/img/edit.png" width="25px" height="25px"/>
 						<f:ajax execute="botaoeditar" render="@form"/>
 
 				</h:commandLink>
@@ -133,11 +134,22 @@
 
 			<h:column>
 				<f:facet name="header">Excluir</f:facet>
-				<h:commandLink value="Excluir" immediate="true" id="botaoexcluir"
+				<h:commandLink immediate="true" id="botaoexcluir"
 					action="#{usuarioPessoaManagedBean.remover}">
 					<f:setPropertyActionListener value="#{user}"
 						target="#{usuarioPessoaManagedBean.usuarioPessoa}"/>
 					<f:ajax execute="botaoexcluir" render="@form formulario:msg"/>
+					<h:graphicImage url="resources/img/delete.png" width="25px" height="25px"/>
+				</h:commandLink>
+			</h:column>
+
+<h:column>
+				<f:facet name="header">Telefones</f:facet>
+				<h:commandLink immediate="true" 
+					action="telefone.jsf" id="botaofone">
+					<h:graphicImage url="resources/img/tel.png" width="30px" height="30px" alt="Excluir"/>
+					<f:param name="codigouser" value="#{user.id}"></f:param>
+					
 				</h:commandLink>
 			</h:column>
 
