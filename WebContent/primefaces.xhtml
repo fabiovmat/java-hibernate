@@ -51,6 +51,11 @@
 			<p:inputText value="#{usuarioPessoaManagedBean.usuarioPessoa.idade}"
 				autocomplete="true"></p:inputText>
 
+			<p:outputLabel>Salario </p:outputLabel>
+			<p:inputText
+				value="#{usuarioPessoaManagedBean.usuarioPessoa.salario}"
+				autocomplete="true"></p:inputText>
+
 			<p:outputLabel>Sexo </p:outputLabel>
 			<p:selectOneMenu
 				value="#{usuarioPessoaManagedBean.usuarioPessoa.sexo}">
@@ -82,7 +87,7 @@
 
 		<p:commandButton value="Novo" immediate="true"
 			action="#{usuarioPessoaManagedBean.novo}">
-		<f:ajax execute="@this" render="@form"/>
+			<f:ajax execute="@this" render="@form" />
 
 
 		</p:commandButton>
@@ -108,6 +113,11 @@
 
 			<p:column headerText="Idade">
 				<h:outputText value="#{user.idade}"></h:outputText>
+
+			</p:column>
+
+			<p:column headerText="Salario">
+				<h:outputText value="#{user.salario}"></h:outputText>
 
 			</p:column>
 
@@ -163,7 +173,7 @@
 	</h:form>
 
 
-
+<p:chart type="bar" model="#{usuarioPessoaManagedBean.barCharModel}"/>
 
 
 </h:body>

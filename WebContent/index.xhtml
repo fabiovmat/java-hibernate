@@ -41,7 +41,11 @@
 
 			<h:outputLabel>Idade</h:outputLabel>
 			<h:inputText value="#{usuarioPessoaManagedBean.usuarioPessoa.idade}" required="true" requiredMessage="Informe a Idade"/>
-
+			
+			<h:outputLabel>Salario</h:outputLabel>
+			<h:inputText value="#{usuarioPessoaManagedBean.usuarioPessoa.salario}" required="true" requiredMessage="Informe o salario"/>
+			
+			
 			<h:outputLabel>Sexo </h:outputLabel>
 			<h:selectOneMenu value="#{usuarioPessoaManagedBean.usuarioPessoa.sexo}">
 			<f:selectItem itemValue="MASCULINO"/>
@@ -135,6 +139,12 @@
 			<h:column>
 				<f:facet name="header">Idade</f:facet>
 				<h:outputText value="#{user.idade}"></h:outputText>
+
+			</h:column>
+			
+				<h:column>
+				<f:facet name="header">Salario</f:facet>
+				<h:outputText value="#{user.salario}"></h:outputText>
 
 			</h:column>
 			

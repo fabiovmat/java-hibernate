@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -14,6 +15,9 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
+
+import org.primefaces.model.chart.BarChartModel;
+import org.primefaces.model.chart.ChartSeries;
 
 import com.google.gson.Gson;
 
@@ -28,12 +32,28 @@ public class UsuarioPessoaManagedBean {
 
 	private List<UsuarioPessoa> list = new ArrayList<UsuarioPessoa>();
 	private DaoUsuario<UsuarioPessoa> daoGeneric = new DaoUsuario<UsuarioPessoa>();
-
+	private BarChartModel barCharModel = new BarChartModel();
+	
+	
 	@PostConstruct
 	public void init() {
 		list = daoGeneric.listar(UsuarioPessoa.class);
+		
+		ChartSeries userSalario = new ChartSeries("Salario do Usuario");/*grupo de funcionarios*/
+		userSalario.setLabel("Users");
+		for (UsuarioPessoa usuarioPessoa : list) {
+		userSalario.set(usuarioPessoa.getSalario(), usuarioPessoa.getSalario() ); //add salario
+		}
+		barCharModel.addSeries(userSalario); //adiciona o grupo no bar model
+		barCharModel.setTitle("Grafico de Salarios");//nome do grafico
+		}
+	
+
+	public BarChartModel getBarCharModel() {
+		return barCharModel;
 	}
 
+	
 	public void pesquisaCep(AjaxBehaviorEvent event) {
 		try {
 

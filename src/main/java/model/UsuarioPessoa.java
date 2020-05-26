@@ -63,7 +63,15 @@ public class UsuarioPessoa {
 	private String unidade;
 	private String ibge;
 	private String gia;
+	private Double salario;
 	
+	public void setSalario(Double salario) {
+		this.salario = salario;
+	}
+	
+	public Double getSalario() {
+		return salario;
+	}
 	
 	public String getCep() {
 		return cep;
