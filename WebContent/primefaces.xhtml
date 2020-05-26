@@ -9,18 +9,20 @@
 
 
 <h:body>
- <h:form>
- <p:breadCrumb>
- 	<p:menuitem/>
- 
- 	<p:menuitem value="Pagina JSF" action="index.jsf"></p:menuitem>
- 	
- 	<p:menuitem value="Pagina PrimeFaces" action="primefaces.jsf"></p:menuitem>
- 	
- </p:breadCrumb>
- </h:form>
+	<h:form>
+		<p:breadCrumb>
+			<p:menuitem />
+
+			<p:menuitem value="Pagina JSF" action="index.jsf"></p:menuitem>
+
+			<p:menuitem value="Pagina PrimeFaces" action="primefaces.jsf"></p:menuitem>
+
+		</p:breadCrumb>
+	</h:form>
 
 	<h:form id="formulario">
+		<p:messages showDetail="true" showSummary="false" id="msg"
+			autoupdate="true" />
 		<p:panelGrid columns="2" cellpadding="2">
 
 			<p:outputLabel>ID </p:outputLabel>
@@ -30,6 +32,7 @@
 
 			<p:outputLabel>Nome </p:outputLabel>
 			<p:inputText value="#{usuarioPessoaManagedBean.usuarioPessoa.nome}"
+				required="true" requiredMessage="Voce precisa digitar um Nome"
 				autocomplete="true"></p:inputText>
 
 			<p:outputLabel>Sobrenome </p:outputLabel>
@@ -48,13 +51,16 @@
 			<p:inputText value="#{usuarioPessoaManagedBean.usuarioPessoa.idade}"
 				autocomplete="true"></p:inputText>
 
-			<h:outputLabel>Sexo </h:outputLabel>
-			<h:selectOneMenu value="#{usuarioPessoaManagedBean.usuarioPessoa.sexo}">
-			<f:selectItem itemValue="MASCULINO"/>
-			<f:selectItem itemValue="FEMININO"/>
-			
-			
-			</h:selectOneMenu>
+			<p:outputLabel>Sexo </p:outputLabel>
+			<p:selectOneMenu
+				value="#{usuarioPessoaManagedBean.usuarioPessoa.sexo}">
+				<f:selectItem itemValue="MASCULINO" itemLabel="Masculino" />
+				<f:selectItem itemValue="FEMININO" itemLabel="Feminino" />
+			</p:selectOneMenu>
+
+
+
+
 
 			<p:outputLabel>Login </p:outputLabel>
 			<p:inputText value="#{usuarioPessoaManagedBean.usuarioPessoa.login}"
@@ -64,7 +70,7 @@
 
 			<p:outputLabel>Senha </p:outputLabel>
 			<p:password id="feedback"
-				value="#{usuarioPessoaManagedBean.usuarioPessoa.senha}"	>
+				value="#{usuarioPessoaManagedBean.usuarioPessoa.senha}">
 			</p:password>
 
 
@@ -74,17 +80,20 @@
 		<p:commandButton value="Salvar"
 			action="#{usuarioPessoaManagedBean.salvar}" ajax="false" />
 
-		<p:commandButton value="Novo"
-			action="#{usuarioPessoaManagedBean.novo}" ajax="false" />
+		<p:commandButton value="Novo" immediate="true"
+			action="#{usuarioPessoaManagedBean.novo}">
+		<f:ajax execute="@this" render="@form"/>
 
+
+		</p:commandButton>
 
 		<br />
 		<br />
-		
-		</h:form>
-		
-		
-		<h:form id="formTable">
+
+	</h:form>
+
+
+	<h:form id="formTable">
 		<p:dataTable value="#{usuarioPessoaManagedBean.list}" var="user">
 			<p:column headerText="ID">
 				<h:outputText value="#{user.id}"></h:outputText>
@@ -101,13 +110,13 @@
 				<h:outputText value="#{user.idade}"></h:outputText>
 
 			</p:column>
-			
+
 			<p:column headerText="Sexo">
 				<h:outputText value="#{user.sexo}"></h:outputText>
 
 			</p:column>
-			
-			
+
+
 
 			<p:column headerText="Sobrenome">
 				<h:outputText value="#{user.sobrenome}"></h:outputText>
@@ -127,19 +136,22 @@
 			<p:column headerText="Editar">
 				<h:commandLink immediate="true" id="botaoeditar">
 					<f:setPropertyActionListener value="#{user}"
-						target="#{usuarioPessoaManagedBean.usuarioPessoa}"/>
-						<h:graphicImage url="resources/img/edit.png" width="25px" height="25px"/>
-						<f:ajax execute="botaoeditar" render="@form"/>
+						target="#{usuarioPessoaManagedBean.usuarioPessoa}" />
+					<h:graphicImage url="resources/img/edit.png" width="25px"
+						height="25px" />
+					<f:ajax execute="botaoeditar" render=":formulario" />
 				</h:commandLink>
 			</p:column>
 
 			<p:column headerText="Excluir">
 				<h:commandLink immediate="true" id="botaoexcluir"
 					action="#{usuarioPessoaManagedBean.remover}">
-					<h:graphicImage url="resources/img/delete.png" width="25px" height="25px"/>
+					<h:graphicImage url="resources/img/delete.png" width="25px"
+						height="25px" />
 					<f:setPropertyActionListener value="#{user}"
-						target="#{usuarioPessoaManagedBean.usuarioPessoa}"/>
-						<f:ajax execute="botaoexcluir" render="@form"/>
+						target="#{usuarioPessoaManagedBean.usuarioPessoa}" />
+					<f:ajax execute="botaoexcluir" render="@form" />
+
 				</h:commandLink>
 			</p:column>
 

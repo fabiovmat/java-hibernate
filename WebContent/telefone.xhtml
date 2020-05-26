@@ -23,53 +23,53 @@
 
 
 	<h:form id="formulariotel">
-		<h:messages showDetail="true" showSummary="false" id="msgtel" />
+		<p:messages showDetail="true" showSummary="false" id="msgtel" />
 
 		<h:panelGrid columns="2">
 
-			<h:outputLabel>Usuario :</h:outputLabel>
-			<h:outputText value="#{telefoneManagedBean.user.nome}" />
+			<p:outputLabel>Usuario :</p:outputLabel>
+			<p:outputLabel value="#{telefoneManagedBean.user.nome}" />
 
-			<h:outputLabel>Numero :</h:outputLabel>
-			<h:inputText value="#{telefoneManagedBean.telefone.numero}" />
+			<p:outputLabel>Numero :</p:outputLabel>
+			<p:inputText value="#{telefoneManagedBean.telefone.numero}" required="true" requiredMessage="Numero obirgatório"/>
 
-			<h:outputLabel>Tipo :</h:outputLabel>
-			<h:inputText value="#{telefoneManagedBean.telefone.tipo}" />
+			<p:outputLabel>Tipo :</p:outputLabel>
+			<p:inputText value="#{telefoneManagedBean.telefone.tipo}" required="true" requiredMessage="Tipo obrigatório"/>
 
 
 
 		</h:panelGrid>
 		<br />
 		<br />
-		<h:commandButton value="Salvar" action="#{telefoneManagedBean.salvar}" />
+		<p:commandButton value="Salvar" action="#{telefoneManagedBean.salvar}" ajax="false" />
 
 	</h:form>
 
 	<h:form id="formTelefones">
 
-		<h:dataTable value="#{telefoneManagedBean.user.telefoneUsers}"
+		<p:dataTable value="#{telefoneManagedBean.user.telefoneUsers}"
 			var="fone" cellpadding="15" border="1" id="tablefone">
-			<f:facet name="header">Lista de telefones</f:facet>
-			<h:column>
+			
+			<p:column>
 				<f:facet name="header">Id</f:facet>
 				<h:outputText value="#{fone.id}"></h:outputText>
 
-			</h:column>
+			</p:column>
 
-			<h:column>
+			<p:column>
 				<f:facet name="header">Numero</f:facet>
 				<h:outputText value="#{fone.numero}"></h:outputText>
 
-			</h:column>
+			</p:column>
 
-			<h:column>
+			<p:column>
 				<f:facet name="header">Tipo</f:facet>
 				<h:outputText value="#{fone.tipo}"></h:outputText>
 
-			</h:column>
+			</p:column>
 
 
-			<h:column>
+			<p:column>
 				<f:facet name="header">Editar</f:facet>
 				<h:commandLink immediate="true" id="botaoeditartel">
 					<f:setPropertyActionListener value="#{fone}"
@@ -78,13 +78,13 @@
 						<f:ajax execute="botaoeditartel" render="@form"/>
 
 				</h:commandLink>
-			</h:column>
+			</p:column>
 
 
 
 
 
-		<h:column>
+		<p:column>
 				<f:facet name="header">Excluir</f:facet>
 				<h:commandLink immediate="true" id="botaoremover"
 					action="#{telefoneManagedBean.removeTelefone}" >
@@ -93,9 +93,9 @@
 					<f:ajax execute="botaoremover" render="@form formulariotel:msgtel"/>
 					<h:graphicImage url="resources/img/delete.png" width="25px" height="25px"/>
 				</h:commandLink>
-			</h:column>
+			</p:column>
 
-		</h:dataTable>
+		</p:dataTable>
 
 
 	</h:form>
