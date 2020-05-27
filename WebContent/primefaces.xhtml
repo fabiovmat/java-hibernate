@@ -31,30 +31,36 @@
 
 
 			<p:outputLabel>Nome </p:outputLabel>
-			<p:inputText value="#{usuarioPessoaManagedBean.usuarioPessoa.nome}"
+			<p:inputText id="idnomepessoa"    value="#{usuarioPessoaManagedBean.usuarioPessoa.nome}"
 				required="true" requiredMessage="Voce precisa digitar um Nome"
-				autocomplete="true"></p:inputText>
+				autocomplete="true">
+				<p:watermark value="Informe o nome da pessoa" for="idnomepessoa"/>
+				</p:inputText>
 
 			<p:outputLabel>Sobrenome </p:outputLabel>
 			<p:inputText
+				id="sobrenome"
 				value="#{usuarioPessoaManagedBean.usuarioPessoa.sobrenome}"
-				autocomplete="true"></p:inputText>
-
-
-
-			<p:outputLabel>E-mail </p:outputLabel>
-			<p:inputText value="#{usuarioPessoaManagedBean.usuarioPessoa.email}"
-				autocomplete="true" requiredMessage="Informe o e-mail"></p:inputText>
+				autocomplete="true">
+				<p:watermark value="Informe o sobrenome" for="sobrenome"/>
+				</p:inputText>
 
 
 			<p:outputLabel>Idade </p:outputLabel>
-			<p:inputText value="#{usuarioPessoaManagedBean.usuarioPessoa.idade}"
-				autocomplete="true"></p:inputText>
+			<p:inputText
+				id="idade" 
+				value="#{usuarioPessoaManagedBean.usuarioPessoa.idade}"
+				autocomplete="true">
+				<p:watermark value="Informe a idade" for="idade"/>
+				</p:inputText>
 
 			<p:outputLabel>Salario </p:outputLabel>
 			<p:inputText
+				id="salario"
 				value="#{usuarioPessoaManagedBean.usuarioPessoa.salario}"
-				autocomplete="true"></p:inputText>
+				autocomplete="true">
+				<p:watermark value="Informe o salario" for="salario"/>
+				</p:inputText>
 
 			<p:outputLabel>Sexo </p:outputLabel>
 			<p:selectOneMenu
@@ -68,14 +74,19 @@
 
 
 			<p:outputLabel>Login </p:outputLabel>
-			<p:inputText value="#{usuarioPessoaManagedBean.usuarioPessoa.login}"
-				autocomplete="true"></p:inputText>
+			<p:inputText 
+				id="login"
+				value="#{usuarioPessoaManagedBean.usuarioPessoa.login}"
+				autocomplete="true" >
+				<p:watermark value="Informe o login" for="login"/>
+				</p:inputText>
 
 
 
 			<p:outputLabel>Senha </p:outputLabel>
 			<p:password id="feedback"
 				value="#{usuarioPessoaManagedBean.usuarioPessoa.senha}">
+				<p:watermark value="Informe o password" for="feedback"/>
 			</p:password>
 
 
@@ -133,11 +144,7 @@
 
 			</p:column>
 
-			<p:column headerText="E-Mail">
-				<h:outputText value="#{user.email}"></h:outputText>
-
-			</p:column>
-
+		
 			<p:column headerText="Login">
 				<h:outputText value="#{user.login}"></h:outputText>
 

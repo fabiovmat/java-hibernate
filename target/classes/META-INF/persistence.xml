@@ -1,29 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
-	<persistence-unit name="java-hibernate">
+	<persistence-unit name="java-hibernate" transaction-type="RESOURCE_LOCAL">
 	
 	
 	
 	<class>model.UsuarioPessoa</class>
 	<class>model.TelefoneUser</class>
-	<properties>
-	<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" /> <!-- DB Driver -->
-            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/posjavahibernate" /> <!-- BD Mane -->
-            <property name="javax.persistence.jdbc.user" value="postgres" /> <!-- DB User -->
-            <property name="javax.persistence.jdbc.password" value="admin" /> <!-- DB Password -->
+	<class>model.EmailUser</class>
+	<properties> <!-- DB Driver --> <!-- BD Mane --> <!-- DB User --> <!-- DB Password -->
 
 	    <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/> <!-- DB Dialect -->
-            <property name="hibernate.hbm2ddl.auto" value="update" /> <!-- create / create-drop / update -->
+            <property name="hibernate.hbm2ddl.auto" value="create-drop" /> <!-- create / create-drop / update -->
             
             <property name="hibernate.show_sql" value="true" /> <!-- Show SQL in console -->
-            <property name="hibernate.format_sql" value="true" /> <!-- Show SQL formatted -->
+            <property name="hibernate.format_sql" value="true" />
+            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/posjavahibernate"/>
+            <property name="javax.persistence.jdbc.user" value="postgres"/>
+            <property name="javax.persistence.jdbc.password" value="admin"/>
+            <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/> <!-- Show SQL formatted -->
             
-            <!-- EclipseLink should create the database schema automatically -->
-  			<property name="eclipselink.ddl-generation" value="create-tables" />
-  			<property name="eclipselink.create-ddl-jdbc-file-name" value="createDDL_ddlGeneration.jdbc"/>
-			<!--<property name="eclipselink.drop-ddl-jdbc-file-name" value="dropDDL_ddlGeneration.jdbc"/>-->
-  			<property name="eclipselink.ddl-generation.output-mode" value="both"/>
-  			<property name="eclipselink.logging.level" value="FINE"/>
+           
 	</properties>
 	
 	</persistence-unit>

@@ -23,7 +23,7 @@ public class TesteHibernate {
 		pessoa.setNome("Edgar");
 		pessoa.setSenha("123");
 		pessoa.setSobrenome("Matt");
-		pessoa.setEmail("java@test.com.br");
+		
 
 		daoGeneric.salvar(pessoa);
 
