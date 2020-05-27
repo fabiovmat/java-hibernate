@@ -1,8 +1,12 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -127,8 +131,20 @@ public class UsuarioPessoa {
 	public void setGia(String gia) {
 		this.gia = gia;
 	}
-	@OneToMany(mappedBy = "usuarioPessoa")
-	private List<TelefoneUser> telefoneUsers;
+	
+	@OneToMany(mappedBy = "usuarioPessoa", fetch = FetchType.EAGER,cascade = CascadeType.REMOVE,orphanRemoval = true)
+	private List<TelefoneUser> telefoneUsers = new ArrayList<TelefoneUser>();
+	
+	@OneToMany(mappedBy = "usuarioPessoa", fetch = FetchType.LAZY,cascade = CascadeType.REMOVE,orphanRemoval = true)
+	private List<EmailUser> emails = new ArrayList<EmailUser>();
+	
+	public List<EmailUser> getEmails() {
+		return emails;
+	}
+	
+	public void setEmails(List<EmailUser> emails) {
+		this.emails = emails;
+	}
 	
 	
 	public List<TelefoneUser> getTelefoneUsers() {

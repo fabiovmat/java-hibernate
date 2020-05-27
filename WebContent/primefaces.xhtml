@@ -149,6 +149,17 @@
 				<h:outputText value="#{user.login}"></h:outputText>
 
 			</p:column>
+			
+			<p:column headerText="Telefones">
+				
+				<h:commandLink immediate="true"
+					action="telefone.jsf" id="botaofone">
+					<h:graphicImage url="resources/img/tel.png" width="30px" height="30px" alt="Editar Telefone"/>
+					<f:param name="codigouser" value="#{user.id}"/>
+					
+				</h:commandLink>
+			</p:column>
+			
 
 			<p:column headerText="Editar">
 				<h:commandLink immediate="true" id="botaoeditar">
@@ -180,6 +191,9 @@
 	</h:form>
 
 
+
+
+<br/>
 <p:chart type="bar" model="#{usuarioPessoaManagedBean.barCharModel}"/>
 
 
