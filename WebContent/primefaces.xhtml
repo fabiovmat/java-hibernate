@@ -21,7 +21,7 @@
 	</h:form>
 
 	<h:form id="formulario">
-		<p:messages showDetail="true" showSummary="false" id="msg"
+		<p:growl showDetail="true"  id="msg"
 			autoupdate="true" />
 		<p:panelGrid columns="2" cellpadding="2">
 
@@ -31,36 +31,34 @@
 
 
 			<p:outputLabel>Nome </p:outputLabel>
-			<p:inputText id="idnomepessoa"    value="#{usuarioPessoaManagedBean.usuarioPessoa.nome}"
+			<p:inputText id="idnomepessoa"
+				value="#{usuarioPessoaManagedBean.usuarioPessoa.nome}"
 				required="true" requiredMessage="Voce precisa digitar um Nome"
 				autocomplete="true">
-				<p:watermark value="Informe o nome da pessoa" for="idnomepessoa"/>
-				</p:inputText>
+				<p:watermark value="Informe o nome da pessoa" for="idnomepessoa" />
+			</p:inputText>
 
 			<p:outputLabel>Sobrenome </p:outputLabel>
-			<p:inputText
-				id="sobrenome"
+			<p:inputText id="sobrenome"
 				value="#{usuarioPessoaManagedBean.usuarioPessoa.sobrenome}"
 				autocomplete="true">
-				<p:watermark value="Informe o sobrenome" for="sobrenome"/>
-				</p:inputText>
+				<p:watermark value="Informe o sobrenome" for="sobrenome" />
+			</p:inputText>
 
 
 			<p:outputLabel>Idade </p:outputLabel>
-			<p:inputText
-				id="idade" 
+			<p:inputText id="idade"
 				value="#{usuarioPessoaManagedBean.usuarioPessoa.idade}"
 				autocomplete="true">
-				<p:watermark value="Informe a idade" for="idade"/>
-				</p:inputText>
+				<p:watermark value="Informe a idade" for="idade" />
+			</p:inputText>
 
 			<p:outputLabel>Salario </p:outputLabel>
-			<p:inputText
-				id="salario"
+			<p:inputText id="salario"
 				value="#{usuarioPessoaManagedBean.usuarioPessoa.salario}"
 				autocomplete="true">
-				<p:watermark value="Informe o salario" for="salario"/>
-				</p:inputText>
+				<p:watermark value="Informe o salario" for="salario" />
+			</p:inputText>
 
 			<p:outputLabel>Sexo </p:outputLabel>
 			<p:selectOneMenu
@@ -74,19 +72,18 @@
 
 
 			<p:outputLabel>Login </p:outputLabel>
-			<p:inputText 
-				id="login"
+			<p:inputText id="login"
 				value="#{usuarioPessoaManagedBean.usuarioPessoa.login}"
-				autocomplete="true" >
-				<p:watermark value="Informe o login" for="login"/>
-				</p:inputText>
+				autocomplete="true">
+				<p:watermark value="Informe o login" for="login" />
+			</p:inputText>
 
 
 
 			<p:outputLabel>Senha </p:outputLabel>
 			<p:password id="feedback"
 				value="#{usuarioPessoaManagedBean.usuarioPessoa.senha}">
-				<p:watermark value="Informe o password" for="feedback"/>
+				<p:watermark value="Informe o password" for="feedback" />
 			</p:password>
 
 
@@ -110,6 +107,7 @@
 
 
 	<h:form id="formTable">
+	<p:growl id="growl" showDetail="true" sticky="true" />  
 		<p:dataTable value="#{usuarioPessoaManagedBean.list}" var="user">
 			<p:column headerText="ID">
 				<h:outputText value="#{user.id}"></h:outputText>
@@ -144,22 +142,22 @@
 
 			</p:column>
 
-		
+
 			<p:column headerText="Login">
 				<h:outputText value="#{user.login}"></h:outputText>
 
 			</p:column>
-			
+
 			<p:column headerText="Telefones">
-				
-				<h:commandLink immediate="true"
-					action="telefone.jsf" id="botaofone">
-					<h:graphicImage url="resources/img/tel.png" width="30px" height="30px" alt="Editar Telefone"/>
-					<f:param name="codigouser" value="#{user.id}"/>
-					
+
+				<h:commandLink immediate="true" action="telefone.jsf" id="botaofone">
+					<h:graphicImage url="resources/img/tel.png" width="30px"
+						height="30px" alt="Editar Telefone" />
+					<f:param name="codigouser" value="#{user.id}" />
+
 				</h:commandLink>
 			</p:column>
-			
+
 
 			<p:column headerText="Editar">
 				<h:commandLink immediate="true" id="botaoeditar">
@@ -182,10 +180,56 @@
 
 				</h:commandLink>
 			</p:column>
+			<p:column headerText="E-mails">
+				<p:commandLink update=":formTable:dialogEmail"
+					oncomplete="PF('dialogEmail').show()">
+					<f:setPropertyActionListener value="#{user}"
+						target="#{usuarioPessoaManagedBean.usuarioPessoa}" />
 
+					<h:graphicImage width="25px" height="25px"
+						url="/resources/img/email.png"></h:graphicImage>
+
+
+				</p:commandLink>
+
+
+			</p:column>
 
 		</p:dataTable>
 
+		<p:dialog header="E-mails" id="dialogEmail" widgetVar="dialogEmail"
+			position="center" modal="true" width="490px" resizable="false" >
+		<p:panelGrid columns="3">
+		<h:outputLabel value="E-mail"/>
+		<p:inputText value="#{usuarioPessoaManagedBean.emailuser.email}" id="emailuseradd"/>
+		<p:commandButton value="Adicionar Email" actionListener="#{usuarioPessoaManagedBean.addEmail}" update="formTable"></p:commandButton>
+		</p:panelGrid>
+		
+		<p:dataTable value="#{usuarioPessoaManagedBean.usuarioPessoa.emails}" var="email" id="dataTableEmail" >
+		<p:column headerText="Id">
+		<h:outputLabel value="#{email.id}"/>
+		</p:column>
+		
+		<p:column headerText="Email">
+		<h:outputLabel value="#{email.email}"/>
+		</p:column>
+		
+		<p:column headerText="Remover">
+		<h:commandLink id="botaoremoveremail" actionListener="#{usuarioPessoaManagedBean.removerEmail}" >
+			<f:param name="codigoemail" value="#{email.id}"/>
+			<f:ajax execute="botaoremoveremail" render="formTable"/>
+			<h:graphicImage url="resources/img/delete.png" width="25px"
+						height="25px" />
+		
+		</h:commandLink>
+		
+	
+		</p:column>
+		
+		
+		</p:dataTable>
+
+		</p:dialog>
 
 
 	</h:form>
@@ -193,8 +237,8 @@
 
 
 
-<br/>
-<p:chart type="bar" model="#{usuarioPessoaManagedBean.barCharModel}"/>
+	<br />
+	<p:chart type="bar" model="#{usuarioPessoaManagedBean.barCharModel}" />
 
 
 </h:body>

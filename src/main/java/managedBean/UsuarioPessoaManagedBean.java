@@ -21,7 +21,10 @@ import org.primefaces.model.chart.ChartSeries;
 
 import com.google.gson.Gson;
 
+import dao.DaoEmail;
+import dao.DaoGeneric;
 import dao.DaoUsuario;
+import model.EmailUser;
 import model.UsuarioPessoa;
 
 @ManagedBean(name = "usuarioPessoaManagedBean")
@@ -33,27 +36,26 @@ public class UsuarioPessoaManagedBean {
 	private List<UsuarioPessoa> list = new ArrayList<UsuarioPessoa>();
 	private DaoUsuario<UsuarioPessoa> daoGeneric = new DaoUsuario<UsuarioPessoa>();
 	private BarChartModel barCharModel = new BarChartModel();
-	
-	
+	private EmailUser emailuser = new EmailUser();
+	private DaoEmail<EmailUser> daoEmail = new DaoEmail<EmailUser>();
+
 	@PostConstruct
 	public void init() {
 		list = daoGeneric.listar(UsuarioPessoa.class);
-		
-		ChartSeries userSalario = new ChartSeries("Salario do Usuario");/*grupo de funcionarios*/
+
+		ChartSeries userSalario = new ChartSeries("Salario do Usuario");/* grupo de funcionarios */
 		userSalario.setLabel("Users");
 		for (UsuarioPessoa usuarioPessoa : list) {
-		userSalario.set(usuarioPessoa.getSalario(), usuarioPessoa.getSalario() ); //add salario
+			userSalario.set(usuarioPessoa.getSalario(), usuarioPessoa.getSalario()); // add salario
 		}
-		barCharModel.addSeries(userSalario); //adiciona o grupo no bar model
-		barCharModel.setTitle("Grafico de Salarios");//nome do grafico
-		}
-	
+		barCharModel.addSeries(userSalario); // adiciona o grupo no bar model
+		barCharModel.setTitle("Grafico de Salarios");// nome do grafico
+	}
 
 	public BarChartModel getBarCharModel() {
 		return barCharModel;
 	}
 
-	
 	public void pesquisaCep(AjaxBehaviorEvent event) {
 		try {
 
@@ -76,8 +78,8 @@ public class UsuarioPessoaManagedBean {
 
 			}
 
-			UsuarioPessoa userCepPessoa = new Gson().fromJson(jsonCep.toString(), UsuarioPessoa.class);			
-			
+			UsuarioPessoa userCepPessoa = new Gson().fromJson(jsonCep.toString(), UsuarioPessoa.class);
+
 			usuarioPessoa.setCep(userCepPessoa.getCep());
 			usuarioPessoa.setLogradouro(userCepPessoa.getLogradouro());
 			usuarioPessoa.setComplemento(userCepPessoa.getComplemento());
@@ -87,9 +89,7 @@ public class UsuarioPessoaManagedBean {
 			usuarioPessoa.setUnidade(userCepPessoa.getUnidade());
 			usuarioPessoa.setIbge(userCepPessoa.getIbge());
 			usuarioPessoa.setGia(userCepPessoa.getGia());
-			
-			
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -146,6 +146,38 @@ public class UsuarioPessoaManagedBean {
 		}
 		return "";
 
+	}
+
+	public EmailUser getEmailuser() {
+		return emailuser;
+	}
+
+	public void setEmailuser(EmailUser emailuser) {
+		this.emailuser = emailuser;
+	}
+
+	public void addEmail() {
+		emailuser.setUsuarioPessoa(usuarioPessoa); // adiciona objeto pessoa
+		emailuser = daoEmail.updateMerge(emailuser); // update no banco
+		usuarioPessoa.getEmails().add(emailuser);
+		emailuser = new EmailUser();
+		FacesContext.getCurrentInstance().addMessage(null,
+				new FacesMessage(FacesMessage.SEVERITY_INFO, "Resultado:", "Salvo com sucesso!"));
+
+	}
+
+	public void removerEmail() throws Exception {
+
+	String codigoemail = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("codigoemail");
+	
+	EmailUser remover = new EmailUser();
+	remover.setId(Long.parseLong(codigoemail));
+	daoEmail.deletarPorId(remover);
+	usuarioPessoa.getEmails().remove(remover);
+	FacesContext.getCurrentInstance().addMessage(null,
+			new FacesMessage(FacesMessage.SEVERITY_INFO, "Resultado:", "Deletado com sucesso!"));
+	
+	
 	}
 
 }
