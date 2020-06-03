@@ -34,6 +34,7 @@ public class TelefoneManagedBean {
 	public String removeTelefone() throws Exception {
 		
 		daoTelefone.deletarPorId(telefone);
+		telefone = new TelefoneUser();
 		user = daoUser.pesquisar(user.getId(),UsuarioPessoa.class);
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Informação: ", "Telefone removido!"));
 		return "";

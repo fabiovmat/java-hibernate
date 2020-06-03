@@ -23,7 +23,7 @@
 
 
 	<h:form id="formulariotel">
-		<p:messages showDetail="true" showSummary="false" id="msgtel" />
+		<p:growl showDetail="true" showSummary="false" id="msgtel" />
 
 		<h:panelGrid columns="2">
 
@@ -31,10 +31,17 @@
 			<p:outputLabel value="#{telefoneManagedBean.user.nome}" />
 
 			<p:outputLabel>Numero :</p:outputLabel>
-			<p:inputText value="#{telefoneManagedBean.telefone.numero}" required="true" requiredMessage="Numero obirgatório"/>
+			<p:inputMask value="#{telefoneManagedBean.telefone.numero}" required="true" requiredMessage="Numero obirgatório" mask="(99)9 9999-9999"/>
 
 			<p:outputLabel>Tipo :</p:outputLabel>
-			<p:inputText value="#{telefoneManagedBean.telefone.tipo}" required="true" requiredMessage="Tipo obrigatório"/>
+			<p:selectOneMenu value="#{telefoneManagedBean.telefone.tipo}" required="true" requiredMessage="Tipo obrigatório" style="">
+			
+			<f:selectItem itemValue="RECADO" itemLabel="Recado"/>
+			<f:selectItem itemValue="TRABALHO" itemLabel="Trabalho"/>
+			<f:selectItem itemValue="CASA" itemLabel="Casa"/>
+			<f:selectItem itemValue="CELULAR" itemLabel="Celular"/>
+			<f:selectItem itemValue="COMERCIAL" itemLabel="Comercial"/>
+			</p:selectOneMenu>
 
 
 
@@ -50,26 +57,26 @@
 		<p:dataTable value="#{telefoneManagedBean.user.telefoneUsers}"
 			var="fone" cellpadding="15" border="1" id="tablefone">
 			
-			<p:column>
+			<p:column width="20">
 				<f:facet name="header">Id</f:facet>
-				<h:outputText value="#{fone.id}"></h:outputText>
+				<h:outputText value="#{fone.id}"/>
 
 			</p:column>
 
 			<p:column>
 				<f:facet name="header">Numero</f:facet>
-				<h:outputText value="#{fone.numero}"></h:outputText>
+				<h:outputText value="#{fone.numero}"/>
 
 			</p:column>
 
-			<p:column>
+			<p:column width="200">
 				<f:facet name="header">Tipo</f:facet>
-				<h:outputText value="#{fone.tipo}"></h:outputText>
+				<h:outputText value="#{fone.tipo}"/>
 
 			</p:column>
 
 
-			<p:column>
+			<p:column >
 				<f:facet name="header">Editar</f:facet>
 				<h:commandLink immediate="true" id="botaoeditartel">
 					<f:setPropertyActionListener value="#{fone}"
@@ -84,7 +91,7 @@
 
 
 
-		<p:column>
+		<p:column width="50">
 				<f:facet name="header">Excluir</f:facet>
 				<h:commandLink immediate="true" id="botaoremover"
 					action="#{telefoneManagedBean.removeTelefone}" >
